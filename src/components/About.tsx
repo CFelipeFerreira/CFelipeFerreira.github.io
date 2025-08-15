@@ -1,10 +1,12 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Download, Code, Database, Globe } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const About = () => {
+  const { t } = useLanguage();
   const stats = [
-    { icon: Code, label: "Projetos", value: "50+" },
+    { icon: Code, label: t("projects"), value: "50+" },
     { icon: Database, label: "Tecnologias", value: "20+" },
     { icon: Globe, label: "Anos de Experiência", value: "3+" },
   ];
@@ -14,7 +16,7 @@ const About = () => {
       <div className="container mx-auto px-4 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Sobre <span className="text-gradient">Mim</span>
+            {t("aboutTitle")} <span className="text-gradient">{t("aboutMe")}</span>
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
             Conheça um pouco da minha jornada como desenvolvedor
@@ -39,20 +41,7 @@ const About = () => {
             <h3 className="text-2xl font-bold mb-6">Desenvolvedor Fullstack</h3>
             
             <div className="space-y-4 text-muted-foreground mb-8">
-              <p>
-                Sou um desenvolvedor fullstack com mais de 3 anos de experiência, 
-                especializado em criar soluções web modernas e escaláveis.
-              </p>
-              <p>
-                Minha paixão está em transformar ideias complexas em aplicações 
-                intuitivas e eficientes, utilizando as melhores práticas e 
-                tecnologias do mercado.
-              </p>
-              <p>
-                Trabalho principalmente com React, Node.js e PostgreSQL, 
-                sempre buscando entregar produtos de alta qualidade que 
-                realmente fazem a diferença.
-              </p>
+              <p>{t("aboutDescription")}</p>
             </div>
 
             {/* Stats */}
@@ -72,7 +61,7 @@ const About = () => {
               className="bg-gradient-accent text-primary-foreground shadow-neon hover:shadow-neon hover:scale-105 transition-all duration-300"
             >
               <Download className="mr-2 h-4 w-4" />
-              Baixar Currículo
+              {t("downloadCV")}
             </Button>
           </div>
         </div>

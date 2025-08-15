@@ -1,11 +1,13 @@
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ExternalLink, Github } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 import ecommerceImage from "@/assets/project-ecommerce.jpg";
 import taskappImage from "@/assets/project-taskapp.jpg";
 import dashboardImage from "@/assets/project-dashboard.jpg";
 
 const Projects = () => {
+  const { t } = useLanguage();
   const projects = [
     {
       title: "E-commerce Platform",
@@ -38,7 +40,7 @@ const Projects = () => {
       <div className="container mx-auto px-4 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Meus <span className="text-gradient">Projetos</span>
+            {t("projectsTitle")} <span className="text-gradient">{t("projects")}</span>
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
             Alguns dos projetos que desenvolvi utilizando as mais modernas tecnologias
@@ -81,7 +83,7 @@ const Projects = () => {
                   >
                     <a href={project.github} target="_blank" rel="noopener noreferrer">
                       <Github className="h-4 w-4 mr-2" />
-                      Código
+                      {t("code")}
                     </a>
                   </Button>
                   
@@ -92,7 +94,7 @@ const Projects = () => {
                   >
                     <a href={project.live} target="_blank" rel="noopener noreferrer">
                       <ExternalLink className="h-4 w-4 mr-2" />
-                      Demo
+                      {t("demo")}
                     </a>
                   </Button>
                 </div>

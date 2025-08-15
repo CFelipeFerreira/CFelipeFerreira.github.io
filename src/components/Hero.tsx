@@ -1,8 +1,10 @@
 import { Button } from "@/components/ui/button";
 import { ArrowDown, Github, Linkedin, Mail } from "lucide-react";
 import heroImage from "@/assets/hero-illustration.jpg";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const Hero = () => {
+  const { t } = useLanguage();
   return (
     <section className="min-h-screen flex items-center justify-center pt-16">
       <div className="container mx-auto px-4 lg:px-8">
@@ -10,12 +12,12 @@ const Hero = () => {
           {/* Content */}
           <div className="text-center lg:text-left">
             <h1 className="text-4xl md:text-6xl font-bold mb-6">
-              Olá, eu sou{" "}
+              {t("hello")}{" "}
               <span className="text-gradient">Cainã Santos</span>
             </h1>
             
             <p className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-2xl">
-              Desenvolvedor Fullstack apaixonado por transformar ideias em soluções digitais inovadoras
+              {t("subtitle")}
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 mb-8 justify-center lg:justify-start">
@@ -24,7 +26,7 @@ const Hero = () => {
                 className="bg-gradient-primary text-primary-foreground shadow-neon hover:shadow-neon hover:scale-105 transition-all duration-300"
                 onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}
               >
-                Ver Projetos
+                {t("viewProjects")}
                 <ArrowDown className="ml-2 h-4 w-4" />
               </Button>
               
