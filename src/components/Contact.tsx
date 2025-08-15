@@ -35,19 +35,19 @@ const Contact = () => {
     {
       icon: Mail,
       label: "Email",
-      value: "caina@example.com",
-      href: "mailto:caina@example.com",
+      value: "caina.ffsantos@gmail.com",
+      href: "mailto:caina.ffsantos@gmail.com",
     },
     {
       icon: Phone,
       label: "Telefone",
-      value: "+55 (11) 99999-9999",
-      href: "tel:+5511999999999",
+      value: "+55 (18) 99197-4507",
+      href: "tel:+5518991974507",
     },
     {
       icon: MapPin,
       label: "Localização",
-      value: "São Paulo, SP",
+      value: "Araçatuba, SP",
       href: "#",
     },
   ];
@@ -56,13 +56,13 @@ const Contact = () => {
     {
       icon: Github,
       label: "GitHub",
-      href: "https://github.com",
+      href: "https://github/CFelipeFerreira.com",
       color: "hover:text-neon-purple",
     },
     {
       icon: Linkedin,
       label: "LinkedIn",
-      href: "https://linkedin.com",
+      href: "https://linkedin/in/caina-fsantos/.com",
       color: "hover:text-neon-blue",
     },
     {
