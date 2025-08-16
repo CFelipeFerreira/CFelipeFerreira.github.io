@@ -2,6 +2,7 @@ import { Card } from "@/components/ui/card";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { skillDescriptions } from "@/data/skillDescriptions";
+import { SkillsScene3D } from "./Scene3D";
 
 const Skills = () => {
   const { language, t } = useLanguage();
@@ -44,10 +45,18 @@ const Skills = () => {
   return (
     <section id="skills" className="py-20 bg-dark-surface">
       <div className="container mx-auto px-4 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+        <div className="text-center mb-12 lg:mb-16">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-4">
             {t("skillsTitle")} <span className="text-gradient">{t("skills")}</span>
           </h2>
+        </div>
+
+        {/* Interactive 3D Skills */}
+        <div className="mb-12 lg:mb-16 hidden sm:block">
+          <SkillsScene3D skills={["React", "Node.js", "Python", "Docker", "AWS"]} />
+        </div>
+
+        <div className="text-center mb-8">
           <p className="text-muted-foreground max-w-2xl mx-auto">
             {language === 'pt' 
               ? "Tecnologias e ferramentas que domino para criar soluções completas"

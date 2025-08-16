@@ -76,35 +76,35 @@ const Contact = () => {
   ];
 
   return (
-    <section id="contact" className="py-20 bg-dark-surface">
+    <section id="contact" className="py-16 lg:py-20 bg-dark-surface">
       <div className="container mx-auto px-4 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+        <div className="text-center mb-12 lg:mb-16">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-4">
             {t("contactTitle")} <span className="text-gradient">{t("contactSubtitle")}</span>
           </h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-muted-foreground max-w-2xl mx-auto text-sm sm:text-base">
             {t("contactDescription")}
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-12">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12">
           {/* Contact Information */}
-          <div>
-            <h3 className="text-2xl font-bold mb-8">{t("contactInfoTitle")}</h3>
+          <div className="order-2 lg:order-1">
+            <h3 className="text-xl lg:text-2xl font-bold mb-6 lg:mb-8">{t("contactInfoTitle")}</h3>
             
-            <div className="space-y-6 mb-8">
+            <div className="space-y-4 lg:space-y-6 mb-6 lg:mb-8">
               {contactInfo.map((info, index) => (
-                <Card key={index} className="p-4 bg-card border-border">
+                <Card key={index} className="p-3 lg:p-4 bg-card border-border hover:shadow-lg transition-all duration-300 transform hover:scale-105">
                   <a
                     href={info.href}
-                    className="flex items-center space-x-4 hover:text-primary transition-colors"
+                    className="flex items-center space-x-3 lg:space-x-4 hover:text-primary transition-colors"
                   >
-                    <div className="p-3 bg-primary/10 rounded-lg">
-                      <info.icon className="h-5 w-5 text-primary" />
+                    <div className="p-2 lg:p-3 bg-primary/10 rounded-lg">
+                      <info.icon className="h-4 w-4 lg:h-5 lg:w-5 text-primary" />
                     </div>
                     <div>
-                      <p className="font-medium">{info.label}</p>
-                      <p className="text-muted-foreground">{info.value}</p>
+                      <p className="font-medium text-sm lg:text-base">{info.label}</p>
+                      <p className="text-muted-foreground text-xs lg:text-sm">{info.value}</p>
                     </div>
                   </a>
                 </Card>
@@ -113,18 +113,18 @@ const Contact = () => {
 
             {/* Social Links */}
             <div>
-              <h4 className="text-lg font-semibold mb-4">{t("socialLinksTitle")}</h4>
-              <div className="flex space-x-4">
+              <h4 className="text-base lg:text-lg font-semibold mb-3 lg:mb-4">{t("socialLinksTitle")}</h4>
+              <div className="flex space-x-3 lg:space-x-4">
                 {socialLinks.map((social, index) => (
                   <Button
                     key={index}
                     variant="outline"
                     size="icon"
-                    className={`border-border hover:border-primary ${social.color} transition-all duration-300`}
+                    className={`border-border hover:border-primary ${social.color} transition-all duration-300 transform hover:scale-110`}
                     asChild
                   >
                     <a href={social.href} target="_blank" rel="noopener noreferrer">
-                      <social.icon className="h-5 w-5" />
+                      <social.icon className="h-4 w-4 lg:h-5 lg:w-5" />
                     </a>
                   </Button>
                 ))}
@@ -133,12 +133,12 @@ const Contact = () => {
           </div>
 
           {/* Contact Form */}
-          <Card className="p-8 bg-card border-border shadow-card">
-            <h3 className="text-2xl font-bold mb-6">{t("contactFormTitle")}</h3>
+          <Card className="p-6 lg:p-8 bg-card border-border shadow-card order-1 lg:order-2">
+            <h3 className="text-xl lg:text-2xl font-bold mb-4 lg:mb-6">{t("contactFormTitle")}</h3>
             
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <form onSubmit={handleSubmit} className="space-y-4 lg:space-y-6">
               <div>
-                <Label htmlFor="name">{t("name")}</Label>
+                <Label htmlFor="name" className="text-sm lg:text-base">{t("name")}</Label>
                 <Input
                   id="name"
                   name="name"
@@ -146,12 +146,12 @@ const Contact = () => {
                   onChange={handleChange}
                   placeholder={t("namePlaceholder")}
                   required
-                  className="mt-2"
+                  className="mt-1 lg:mt-2 text-sm lg:text-base"
                 />
               </div>
               
               <div>
-                <Label htmlFor="email">{t("email")}</Label>
+                <Label htmlFor="email" className="text-sm lg:text-base">{t("email")}</Label>
                 <Input
                   id="email"
                   name="email"
@@ -160,12 +160,12 @@ const Contact = () => {
                   onChange={handleChange}
                   placeholder={t("emailPlaceholder")}
                   required
-                  className="mt-2"
+                  className="mt-1 lg:mt-2 text-sm lg:text-base"
                 />
               </div>
               
               <div>
-                <Label htmlFor="message">{t("message")}</Label>
+                <Label htmlFor="message" className="text-sm lg:text-base">{t("message")}</Label>
                 <Textarea
                   id="message"
                   name="message"
@@ -173,14 +173,14 @@ const Contact = () => {
                   onChange={handleChange}
                   placeholder={t("messagePlaceholder")}
                   required
-                  className="mt-2 min-h-[120px]"
+                  className="mt-1 lg:mt-2 min-h-[100px] lg:min-h-[120px] text-sm lg:text-base"
                 />
               </div>
               
               <Button
                 type="submit"
                 size="lg"
-                className="w-full bg-gradient-primary text-primary-foreground shadow-neon hover:shadow-neon hover:scale-105 transition-all duration-300"
+                className="w-full bg-gradient-primary text-primary-foreground shadow-neon hover:shadow-neon hover:scale-105 transition-all duration-300 text-sm lg:text-base"
               >
                 {t("sendMessage")}
               </Button>

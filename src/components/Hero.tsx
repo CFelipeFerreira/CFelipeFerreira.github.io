@@ -1,26 +1,26 @@
 import { Button } from "@/components/ui/button";
 import { ArrowDown, Github, Linkedin, Mail } from "lucide-react";
-import heroImage from "@/assets/hero-illustration.jpg";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { HeroScene3D } from "./Scene3D";
 
 const Hero = () => {
   const { t } = useLanguage();
   return (
-    <section className="min-h-screen flex items-center justify-center pt-16">
-      <div className="container mx-auto px-4 lg:px-8">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
+    <section className="relative min-h-screen flex items-center justify-center pt-14 lg:pt-16 overflow-hidden">
+      <div className="container mx-auto px-4 lg:px-8 relative z-10">
+        <div className="grid lg:grid-cols-2 gap-8 xl:gap-12 items-center">
           {/* Content */}
-          <div className="text-center lg:text-left">
-            <h1 className="text-4xl md:text-6xl font-bold mb-6">
+          <div className="text-center lg:text-left order-2 lg:order-1">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl xl:text-6xl font-bold mb-4 lg:mb-6 leading-tight">
               {t("hello")}{" "}
               <span className="text-gradient">Cainã Santos</span>
             </h1>
             
-            <p className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-2xl">
+            <p className="text-lg sm:text-xl lg:text-2xl text-muted-foreground mb-6 lg:mb-8 max-w-2xl mx-auto lg:mx-0">
               {t("subtitle")}
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4 mb-8 justify-center lg:justify-start">
+            <div className="flex flex-col sm:flex-row gap-3 lg:gap-4 mb-6 lg:mb-8 justify-center lg:justify-start">
               <Button 
                 size="lg" 
                 className="bg-gradient-primary text-primary-foreground shadow-neon hover:shadow-neon hover:scale-105 transition-all duration-300"
@@ -41,7 +41,7 @@ const Hero = () => {
             </div>
 
             {/* Social Links */}
-            <div className="flex gap-4 justify-center lg:justify-start">
+            <div className="flex gap-3 lg:gap-4 justify-center lg:justify-start">
               <Button 
                 variant="ghost" 
                 size="icon"
@@ -77,15 +77,11 @@ const Hero = () => {
             </div>
           </div>
 
-          {/* Hero Image */}
-          <div className="flex justify-center lg:justify-end">
-            <div className="relative">
-              <div className="absolute inset-0 bg-gradient-primary opacity-20 blur-3xl rounded-full transform scale-110"></div>
-              <img
-                src={heroImage}
-                alt="Desenvolvimento tecnológico"
-                className="relative z-10 max-w-md w-full h-auto rounded-2xl shadow-card"
-              />
+          {/* 3D Scene */}
+          <div className="flex justify-center lg:justify-end order-1 lg:order-2">
+            <div className="relative w-full max-w-lg h-64 sm:h-80 lg:h-96">
+              <div className="absolute inset-0 bg-gradient-primary opacity-10 blur-3xl rounded-full"></div>
+              <HeroScene3D />
             </div>
           </div>
         </div>
