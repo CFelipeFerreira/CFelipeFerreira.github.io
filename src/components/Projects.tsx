@@ -10,24 +10,24 @@ const Projects = () => {
   const { t } = useLanguage();
   const projects = [
     {
-      title: "E-commerce Platform",
-      description: "Plataforma completa de e-commerce com carrinho, pagamentos e painel administrativo.",
+      title: t("ecommerceTitle"),
+      description: t("ecommerceDesc"),
       image: ecommerceImage,
       technologies: ["React", "Node.js", "PostgreSQL", "Stripe"],
       github: "https://github.com",
       live: "https://example.com",
     },
     {
-      title: "Task Management App",
-      description: "Aplicativo de gerenciamento de tarefas com interface kanban e colaboração em tempo real.",
+      title: t("taskAppTitle"),
+      description: t("taskAppDesc"),
       image: taskappImage,
       technologies: ["Next.js", "TypeScript", "Prisma", "Socket.io"],
       github: "https://github.com",
       live: "https://example.com",
     },
     {
-      title: "Analytics Dashboard",
-      description: "Dashboard interativo para análise de dados com gráficos dinâmicos e relatórios em tempo real.",
+      title: t("dashboardTitle"),
+      description: t("dashboardDesc"),
       image: dashboardImage,
       technologies: ["Vue.js", "Express", "MongoDB", "Chart.js"],
       github: "https://github.com",
@@ -43,7 +43,7 @@ const Projects = () => {
             {t("projectsTitle")} <span className="text-gradient">{t("projects")}</span>
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            Alguns dos projetos que desenvolvi utilizando as mais modernas tecnologias
+            {t("projectsDescription")}
           </p>
         </div>
 

@@ -7,8 +7,8 @@ const About = () => {
   const { t } = useLanguage();
   const stats = [
     { icon: Code, label: t("projects"), value: "50+" },
-    { icon: Database, label: "Tecnologias", value: "20+" },
-    { icon: Globe, label: "Anos de Experiência", value: "3+" },
+    { icon: Database, label: t("technologies"), value: "20+" },
+    { icon: Globe, label: t("yearsOfExperience"), value: "3+" },
   ];
 
   return (
@@ -16,11 +16,8 @@ const About = () => {
       <div className="container mx-auto px-4 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            {t("aboutTitle")} <span className="text-gradient">{t("aboutMe")}</span>
+            {t("about")} <span className="text-gradient">{t("me")}</span>
           </h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
-            Conheça um pouco da minha jornada como desenvolvedor
-          </p>
         </div>
 
         <div className="grid lg:grid-cols-2 gap-12 items-center">
@@ -38,7 +35,7 @@ const About = () => {
 
           {/* Content */}
           <div>
-            <h3 className="text-2xl font-bold mb-6">Desenvolvedor Fullstack</h3>
+            <h3 className="text-2xl font-bold mb-6">{t("aboutTitle")}</h3>
             
             <div className="space-y-4 text-muted-foreground mb-8">
               <p>{t("aboutDescription")}</p>

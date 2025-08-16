@@ -6,9 +6,11 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Mail, Phone, MapPin, Github, Linkedin, Twitter } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const Contact = () => {
-  const [formData, setFormData] = useState({
+  const { t } = useLanguage();
+  const [formData, setFormData] = useState({  
     name: "",
     email: "",
     message: "",
@@ -20,8 +22,8 @@ const Contact = () => {
     
     // Simulate form submission
     toast({
-      title: "Mensagem enviada!",
-      description: "Obrigado pelo contato. Retornarei em breve!",
+      title: t("messageSent"),
+      description: t("thankYou"),
     });
     
     setFormData({ name: "", email: "", message: "" });
@@ -34,19 +36,19 @@ const Contact = () => {
   const contactInfo = [
     {
       icon: Mail,
-      label: "Email",
+      label: t("email"),
       value: "caina.ffsantos@gmail.com",
       href: "mailto:caina.ffsantos@gmail.com",
     },
     {
       icon: Phone,
-      label: "Telefone",
+      label: t("phone"),
       value: "+55 (18) 99197-4507",
       href: "tel:+5518991974507",
     },
     {
       icon: MapPin,
-      label: "Localização",
+      label: t("location"),
       value: "Araçatuba, SP",
       href: "#",
     },
@@ -55,19 +57,19 @@ const Contact = () => {
   const socialLinks = [
     {
       icon: Github,
-      label: "GitHub",
+      label: t("github"),
       href: "https://github/CFelipeFerreira.com",
       color: "hover:text-neon-purple",
     },
     {
       icon: Linkedin,
-      label: "LinkedIn",
+      label: t("linkedin"),
       href: "https://linkedin/in/caina-fsantos/.com",
       color: "hover:text-neon-blue",
     },
     {
       icon: Twitter,
-      label: "Twitter",
+      label: t("twitter"),
       href: "https://twitter.com",
       color: "hover:text-neon-green",
     },
@@ -78,17 +80,17 @@ const Contact = () => {
       <div className="container mx-auto px-4 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Entre em <span className="text-gradient">Contato</span>
+            {t("contactTitle")} <span className="text-gradient">{t("contactSubtitle")}</span>
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            Vamos conversar sobre seu próximo projeto ou oportunidade
+            {t("contactDescription")}
           </p>
         </div>
 
         <div className="grid lg:grid-cols-2 gap-12">
           {/* Contact Information */}
           <div>
-            <h3 className="text-2xl font-bold mb-8">Informações de Contato</h3>
+            <h3 className="text-2xl font-bold mb-8">{t("contactInfoTitle")}</h3>
             
             <div className="space-y-6 mb-8">
               {contactInfo.map((info, index) => (
@@ -111,7 +113,7 @@ const Contact = () => {
 
             {/* Social Links */}
             <div>
-              <h4 className="text-lg font-semibold mb-4">Redes Sociais</h4>
+              <h4 className="text-lg font-semibold mb-4">{t("socialLinksTitle")}</h4>
               <div className="flex space-x-4">
                 {socialLinks.map((social, index) => (
                   <Button
@@ -132,44 +134,44 @@ const Contact = () => {
 
           {/* Contact Form */}
           <Card className="p-8 bg-card border-border shadow-card">
-            <h3 className="text-2xl font-bold mb-6">Envie uma Mensagem</h3>
+            <h3 className="text-2xl font-bold mb-6">{t("contactFormTitle")}</h3>
             
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
-                <Label htmlFor="name">Nome</Label>
+                <Label htmlFor="name">{t("name")}</Label>
                 <Input
                   id="name"
                   name="name"
                   value={formData.name}
                   onChange={handleChange}
-                  placeholder="Seu nome completo"
+                  placeholder={t("namePlaceholder")}
                   required
                   className="mt-2"
                 />
               </div>
               
               <div>
-                <Label htmlFor="email">Email</Label>
+                <Label htmlFor="email">{t("email")}</Label>
                 <Input
                   id="email"
                   name="email"
                   type="email"
                   value={formData.email}
                   onChange={handleChange}
-                  placeholder="seu@email.com"
+                  placeholder={t("emailPlaceholder")}
                   required
                   className="mt-2"
                 />
               </div>
               
               <div>
-                <Label htmlFor="message">Mensagem</Label>
+                <Label htmlFor="message">{t("message")}</Label>
                 <Textarea
                   id="message"
                   name="message"
                   value={formData.message}
                   onChange={handleChange}
-                  placeholder="Descreva seu projeto ou como posso ajudar..."
+                  placeholder={t("messagePlaceholder")}
                   required
                   className="mt-2 min-h-[120px]"
                 />
@@ -180,7 +182,7 @@ const Contact = () => {
                 size="lg"
                 className="w-full bg-gradient-primary text-primary-foreground shadow-neon hover:shadow-neon hover:scale-105 transition-all duration-300"
               >
-                Enviar Mensagem
+                {t("sendMessage")}
               </Button>
             </form>
           </Card>

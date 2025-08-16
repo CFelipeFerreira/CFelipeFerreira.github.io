@@ -36,7 +36,7 @@ const Hero = () => {
                 className="border-primary text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-300"
                 onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
               >
-                Entre em Contato
+                {t("contactButton")}
               </Button>
             </div>
 

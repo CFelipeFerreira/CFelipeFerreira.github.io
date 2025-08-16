@@ -1,31 +1,33 @@
 import { Github, Linkedin, Mail, Heart } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const Footer = () => {
+  const { t } = useLanguage();
   const currentYear = new Date().getFullYear();
 
   const quickLinks = [
-    { name: "Sobre", href: "#about" },
-    { name: "Projetos", href: "#projects" },
-    { name: "Skills", href: "#skills" },
-    { name: "Contato", href: "#contact" },
+    { name: t("about"), href: "#about" },
+    { name: t("skills"), href: "#skills" },
+    { name: t("projects"), href: "#projects" },
+    { name: t("contact"), href: "#contact" },
   ];
 
   const socialLinks = [
     {
       icon: Github,
-      href: "https://github.com",
-      label: "GitHub",
+      href: "https://github.com/CFelipeFerreira",
+      label: t("github"),
     },
     {
       icon: Linkedin,
-      href: "https://linkedin.com",
-      label: "LinkedIn",
+      href: "https://linkedin.com/in/caina-fsantos",
+      label: t("linkedin"),
     },
     {
       icon: Mail,
-      href: "mailto:caina@example.com",
-      label: "Email",
+      href: "mailto:caina.ffsantos@gmail.com",
+      label: t("email"),
     },
   ];
 
@@ -37,14 +39,13 @@ const Footer = () => {
           <div>
             <h3 className="text-xl font-bold text-gradient mb-4">Cainã Santos</h3>
             <p className="text-muted-foreground text-sm max-w-xs">
-              Desenvolvedor Fullstack criando soluções digitais inovadoras 
-              e experiências excepcionais.
+              {t("footerDescription")}
             </p>
           </div>
 
           {/* Quick Links */}
           <div>
-            <h4 className="font-semibold mb-4">Links Rápidos</h4>
+            <h4 className="font-semibold mb-4">{t("quickLinks")}</h4>
             <nav className="space-y-2">
               {quickLinks.map((link) => (
                 <a
@@ -60,7 +61,7 @@ const Footer = () => {
 
           {/* Social Links */}
           <div>
-            <h4 className="font-semibold mb-4">Conecte-se</h4>
+            <h4 className="font-semibold mb-4">{t("connect")}</h4>
             <div className="flex space-x-3">
               {socialLinks.map((social) => (
                 <Button
@@ -88,10 +89,7 @@ const Footer = () => {
         <div className="pt-8 border-t border-border">
           <div className="flex flex-col md:flex-row justify-between items-center text-sm text-muted-foreground">
             <p>
-              © {currentYear} Cainã Santos. Todos os direitos reservados.
-            </p>
-            <p className="flex items-center mt-2 md:mt-0">
-              Feito com <Heart className="h-4 w-4 mx-1 text-red-500" /> e tecnologia
+              © {currentYear} {t("allRights")}
             </p>
           </div>
         </div>
