@@ -1,6 +1,6 @@
 import { useRef, useMemo } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { Sphere, Box, Torus, OrbitControls, Float, Text3D, Center } from '@react-three/drei';
+import { Sphere, Box, Torus, OrbitControls, Float } from '@react-three/drei';
 import * as THREE from 'three';
 
 // Floating geometric shapes for the hero section
@@ -111,17 +111,7 @@ const SkillOrbs = ({ skills }: { skills: string[] }) => {
                 metalness={0.8}
               />
             </Sphere>
-            <Center position={[0, 0, 0.35]}>
-              <Text3D
-                font="/fonts/Inter_Bold.json"
-                size={0.1}
-                height={0.02}
-                curveSegments={12}
-              >
-                {skill}
-                <meshStandardMaterial color="white" />
-              </Text3D>
-            </Center>
+            {/* Simplified without 3D text to avoid font loading issues */}
           </group>
         </Float>
       ))}
