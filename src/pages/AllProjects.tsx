@@ -1,10 +1,11 @@
+
 import { useState } from "react";
-import { Card } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { ExternalLink, Github, Filter, X } from "lucide-react";
-import { useLanguage } from "@/contexts/LanguageContext";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import ProjectFilters from "@/components/ProjectFilters";
+import ProjectCard from "@/components/ProjectCard";
+import { Button } from "@/components/ui/button";
+import { Search, Sparkles } from "lucide-react";
 import ecommerceImage from "@/assets/project-ecommerce.jpg";
 import taskappImage from "@/assets/project-taskapp.jpg";
 import dashboardImage from "@/assets/project-dashboard.jpg";
@@ -23,13 +24,11 @@ interface Project {
 }
 
 const AllProjects = () => {
-  const { t } = useLanguage();
-  
   const allProjects: Project[] = [
     {
       id: 1,
-      title: t("ecommerceTitle"),
-      description: t("ecommerceDesc"),
+      title: "E-commerce Platform",
+      description: "Plataforma completa de e-commerce com carrinho de compras, pagamentos integrados e painel administrativo avançado",
       image: ecommerceImage,
       technologies: ["React", "Node.js", "PostgreSQL", "Stripe"],
       github: "https://github.com",
@@ -40,8 +39,8 @@ const AllProjects = () => {
     },
     {
       id: 2,
-      title: t("taskAppTitle"),
-      description: t("taskAppDesc"),
+      title: "Task Management App",
+      description: "Sistema colaborativo de gestão de tarefas com notificações em tempo real e sincronização entre dispositivos",
       image: taskappImage,
       technologies: ["Next.js", "TypeScript", "Prisma", "Socket.io"],
       github: "https://github.com",
@@ -52,8 +51,8 @@ const AllProjects = () => {
     },
     {
       id: 3,
-      title: t("dashboardTitle"),
-      description: t("dashboardDesc"),
+      title: "Analytics Dashboard",
+      description: "Dashboard interativo para análise de dados com gráficos dinâmicos e relatórios personalizáveis em tempo real",
       image: dashboardImage,
       technologies: ["Vue.js", "Express", "MongoDB", "Chart.js"],
       github: "https://github.com",
@@ -65,7 +64,7 @@ const AllProjects = () => {
     {
       id: 4,
       title: "Banking Dashboard",
-      description: "Sistema bancário corporativo com análise de dados em tempo real",
+      description: "Sistema bancário corporativo com análise de dados em tempo real, gestão de contas e transações seguras",
       image: dashboardImage,
       technologies: ["React", "TypeScript", "D3.js", "Material-UI"],
       live: "https://example.com",
@@ -76,7 +75,7 @@ const AllProjects = () => {
     {
       id: 5,
       title: "API Gateway Microservice",
-      description: "Gateway de alto desempenho para arquitetura de microservices",
+      description: "Gateway de alto desempenho para arquitetura de microservices com cache distribuído e balanceamento de carga",
       image: taskappImage,
       technologies: ["Node.js", "Express", "Redis", "Docker"],
       github: "https://github.com",
@@ -88,7 +87,7 @@ const AllProjects = () => {
     {
       id: 6,
       title: "Health Platform",
-      description: "Plataforma de saúde digital para consultas médicas online",
+      description: "Plataforma de saúde digital para consultas médicas online com prontuário eletrônico e telemedicina",
       image: ecommerceImage,
       technologies: ["React", "Python", "FastAPI", "PostgreSQL"],
       live: "https://example.com",
@@ -99,7 +98,7 @@ const AllProjects = () => {
     {
       id: 7,
       title: "Mobile Design System",
-      description: "Sistema de design responsivo para aplicações mobile",
+      description: "Sistema de design responsivo e componentes reutilizáveis para aplicações mobile com documentação completa",
       image: dashboardImage,
       technologies: ["React", "Styled Components", "Storybook"],
       github: "https://github.com",
@@ -111,7 +110,7 @@ const AllProjects = () => {
     {
       id: 8,
       title: "ML Model API",
-      description: "API para deploy de modelos de machine learning em produção",
+      description: "API robusta para deploy de modelos de machine learning em produção com monitoramento e escalabilidade automática",
       image: taskappImage,
       technologies: ["Python", "FastAPI", "TensorFlow", "Docker"],
       live: "https://example.com",
@@ -122,7 +121,7 @@ const AllProjects = () => {
     {
       id: 9,
       title: "Social Media Analytics",
-      description: "Ferramenta de análise de redes sociais com métricas avançadas",
+      description: "Ferramenta avançada de análise de redes sociais com métricas de engajamento, sentiment analysis e relatórios automatizados",
       image: ecommerceImage,
       technologies: ["Vue.js", "Node.js", "MongoDB", "Chart.js"],
       github: "https://github.com",
@@ -136,10 +135,6 @@ const AllProjects = () => {
   const [selectedStack, setSelectedStack] = useState<string>("All");
   const [selectedLanguage, setSelectedLanguage] = useState<string>("All");
   const [selectedOpenSource, setSelectedOpenSource] = useState<string>("All");
-
-  const stacks = ["All", "Frontend", "Backend", "Fullstack"];
-  const languages = ["All", "JavaScript", "TypeScript", "Python"];
-  const openSourceOptions = ["All", "Open Source", "Private"];
 
   const filteredProjects = allProjects.filter((project) => {
     const stackMatch = selectedStack === "All" || project.stack === selectedStack;
@@ -165,180 +160,71 @@ const AllProjects = () => {
       <Header />
       
       <main className="pt-20">
-        <section className="py-20">
+        {/* Hero Section */}
+        <section className="py-20 bg-gradient-to-br from-background via-background to-primary/5">
           <div className="container mx-auto px-4 lg:px-8">
-            <div className="text-center mb-16">
-              <h1 className="text-4xl md:text-5xl font-bold mb-4">
-                Todos os <span className="text-gradient">Projetos</span>
-              </h1>
-              <p className="text-muted-foreground max-w-2xl mx-auto">
-                Explore minha coleção completa de projetos, desde aplicações frontend até sistemas backend complexos.
+            <div className="text-center mb-16 max-w-4xl mx-auto">
+              <div className="flex items-center justify-center gap-3 mb-6">
+                <div className="p-3 rounded-xl bg-gradient-primary/10 border border-primary/20">
+                  <Sparkles className="h-8 w-8 text-primary" />
+                </div>
+                <h1 className="text-4xl md:text-6xl font-bold">
+                  Portfólio <span className="text-gradient">Completo</span>
+                </h1>
+              </div>
+              <p className="text-muted-foreground text-lg leading-relaxed max-w-3xl mx-auto">
+                Explore minha coleção completa de projetos, desde aplicações frontend elegantes 
+                até sistemas backend robustos e soluções fullstack complexas.
               </p>
             </div>
+          </div>
+        </section>
 
-            {/* Filters */}
-            <div className="mb-12">
-              <div className="flex flex-wrap gap-4 justify-center items-center mb-6">
-                <div className="flex items-center gap-2">
-                  <Filter className="h-4 w-4 text-muted-foreground" />
-                  <span className="text-sm font-medium text-muted-foreground">Filtros:</span>
-                </div>
+        {/* Filters Section */}
+        <section className="py-16 bg-card/30 backdrop-blur-sm border-y border-border/50">
+          <div className="container mx-auto px-4 lg:px-8">
+            <ProjectFilters
+              selectedStack={selectedStack}
+              selectedLanguage={selectedLanguage}
+              selectedOpenSource={selectedOpenSource}
+              onStackChange={setSelectedStack}
+              onLanguageChange={setSelectedLanguage}
+              onOpenSourceChange={setSelectedOpenSource}
+              onClearFilters={clearFilters}
+              hasActiveFilters={hasActiveFilters}
+              filteredCount={filteredProjects.length}
+              totalCount={allProjects.length}
+            />
+          </div>
+        </section>
 
-                {/* Stack Filter */}
-                <div className="flex flex-wrap gap-2">
-                  <span className="text-xs font-medium text-muted-foreground px-2 py-1">Stack:</span>
-                  {stacks.map((stack) => (
-                    <Button
-                      key={stack}
-                      variant={selectedStack === stack ? "default" : "outline"}
-                      size="sm"
-                      onClick={() => setSelectedStack(stack)}
-                      className={selectedStack === stack ? "bg-gradient-primary" : "border-primary/30 hover:border-primary hover:bg-primary/10"}
-                    >
-                      {stack}
-                    </Button>
-                  ))}
-                </div>
-
-                {/* Language Filter */}
-                <div className="flex flex-wrap gap-2">
-                  <span className="text-xs font-medium text-muted-foreground px-2 py-1">Linguagem:</span>
-                  {languages.map((language) => (
-                    <Button
-                      key={language}
-                      variant={selectedLanguage === language ? "default" : "outline"}
-                      size="sm"
-                      onClick={() => setSelectedLanguage(language)}
-                      className={selectedLanguage === language ? "bg-gradient-primary" : "border-primary/30 hover:border-primary hover:bg-primary/10"}
-                    >
-                      {language}
-                    </Button>
-                  ))}
-                </div>
-
-                {/* Open Source Filter */}
-                <div className="flex flex-wrap gap-2">
-                  <span className="text-xs font-medium text-muted-foreground px-2 py-1">Código:</span>
-                  {openSourceOptions.map((option) => (
-                    <Button
-                      key={option}
-                      variant={selectedOpenSource === option ? "default" : "outline"}
-                      size="sm"
-                      onClick={() => setSelectedOpenSource(option)}
-                      className={selectedOpenSource === option ? "bg-gradient-primary" : "border-primary/30 hover:border-primary hover:bg-primary/10"}
-                    >
-                      {option}
-                    </Button>
-                  ))}
-                </div>
-
-                {hasActiveFilters && (
+        {/* Projects Grid */}
+        <section className="py-20">
+          <div className="container mx-auto px-4 lg:px-8">
+            {filteredProjects.length > 0 ? (
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {filteredProjects.map((project) => (
+                  <ProjectCard key={project.id} project={project} />
+                ))}
+              </div>
+            ) : (
+              <div className="text-center py-20">
+                <div className="max-w-md mx-auto">
+                  <div className="p-4 rounded-full bg-muted/50 w-20 h-20 flex items-center justify-center mx-auto mb-6">
+                    <Search className="h-8 w-8 text-muted-foreground" />
+                  </div>
+                  <h3 className="text-2xl font-bold mb-4">Nenhum projeto encontrado</h3>
+                  <p className="text-muted-foreground mb-6">
+                    Não foi possível encontrar projetos que correspondam aos filtros selecionados.
+                  </p>
                   <Button
-                    variant="ghost"
-                    size="sm"
+                    variant="outline"
                     onClick={clearFilters}
-                    className="text-muted-foreground hover:text-foreground"
+                    className="border-primary/30 hover:border-primary hover:bg-primary/10 hover:shadow-lg transition-all duration-300"
                   >
-                    <X className="h-4 w-4 mr-1" />
-                    Limpar
+                    Limpar filtros
                   </Button>
-                )}
-              </div>
-
-              <div className="text-center">
-                <span className="text-sm text-muted-foreground">
-                  Mostrando {filteredProjects.length} de {allProjects.length} projetos
-                </span>
-              </div>
-            </div>
-
-            {/* Projects Grid */}
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {filteredProjects.map((project) => (
-                <Card key={project.id} className="bg-card border-border shadow-card overflow-hidden group hover:shadow-neon transition-all duration-300">
-                  <div className="relative overflow-hidden">
-                    <img
-                      src={project.image}
-                      alt={project.title}
-                      className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-300"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                    
-                    {/* Stack Badge */}
-                    <div className="absolute top-3 left-3">
-                      <span className="px-2 py-1 bg-primary/90 text-primary-foreground text-xs rounded-full font-medium">
-                        {project.stack}
-                      </span>
-                    </div>
-
-                    {/* Open Source Badge */}
-                    {project.isOpenSource && (
-                      <div className="absolute top-3 right-3">
-                        <span className="px-2 py-1 bg-neon-green/90 text-background text-xs rounded-full font-medium">
-                          Open Source
-                        </span>
-                      </div>
-                    )}
-                  </div>
-                  
-                  <div className="p-6">
-                    <h3 className="text-xl font-bold mb-2">{project.title}</h3>
-                    <p className="text-muted-foreground mb-4 text-sm">{project.description}</p>
-                    
-                    <div className="flex flex-wrap gap-2 mb-4">
-                      {project.technologies.map((tech, techIndex) => (
-                        <span 
-                          key={techIndex}
-                          className="px-2 py-1 bg-primary/10 text-primary text-xs rounded-full border border-primary/20"
-                        >
-                          {tech}
-                        </span>
-                      ))}
-                    </div>
-                    
-                    <div className="flex gap-3">
-                      {project.isOpenSource && project.github && (
-                        <Button 
-                          variant="outline" 
-                          size="sm"
-                          className="flex-1 border-primary/30 hover:border-primary hover:bg-primary/10"
-                          asChild
-                        >
-                          <a href={project.github} target="_blank" rel="noopener noreferrer">
-                            <Github className="h-4 w-4 mr-2" />
-                            {t("code")}
-                          </a>
-                        </Button>
-                      )}
-                      
-                      <Button 
-                        size="sm"
-                        className={`${project.isOpenSource && project.github ? 'flex-1' : 'w-full'} bg-gradient-primary text-primary-foreground hover:shadow-neon`}
-                        asChild
-                      >
-                        <a href={project.live} target="_blank" rel="noopener noreferrer">
-                          <ExternalLink className="h-4 w-4 mr-2" />
-                          {t("demo")}
-                        </a>
-                      </Button>
-                    </div>
-                  </div>
-                </Card>
-              ))}
-            </div>
-
-            {filteredProjects.length === 0 && (
-              <div className="text-center py-12">
-                <p className="text-muted-foreground">
-                  Nenhum projeto encontrado com os filtros selecionados.
-                </p>
-                <Button
-                  variant="outline"
-                  onClick={clearFilters}
-                  className="mt-4 border-primary/30 hover:border-primary hover:bg-primary/10"
-                >
-                  Limpar filtros
-                </Button>
+                </div>
               </div>
             )}
           </div>
