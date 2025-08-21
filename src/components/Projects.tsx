@@ -1,7 +1,8 @@
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ExternalLink, Github } from "lucide-react";
+import { ExternalLink, Github, ArrowRight } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { Link } from "react-router-dom";
 import ecommerceImage from "@/assets/project-ecommerce.jpg";
 import taskappImage from "@/assets/project-taskapp.jpg";
 import dashboardImage from "@/assets/project-dashboard.jpg";
@@ -101,6 +102,19 @@ const Projects = () => {
               </div>
             </Card>
           ))}
+        </div>
+
+        <div className="text-center mt-12">
+          <Button 
+            size="lg"
+            className="bg-gradient-primary text-primary-foreground hover:shadow-neon transition-all duration-300"
+            asChild
+          >
+            <Link to="/projects">
+              {t("seeMoreProjects")}
+              <ArrowRight className="h-4 w-4 ml-2" />
+            </Link>
+          </Button>
         </div>
       </div>
     </section>
