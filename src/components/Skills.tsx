@@ -51,10 +51,6 @@ const Skills = () => {
           </h2>
         </div>
 
-        {/* Interactive 3D Skills */}
-        <div className="mb-12 lg:mb-16 hidden sm:block">
-          <SkillsScene3D skills={["React", "Node.js", "Python", "Docker", "AWS"]} />
-        </div>
 
         <div className="text-center mb-8">
           <p className="text-muted-foreground max-w-2xl mx-auto">

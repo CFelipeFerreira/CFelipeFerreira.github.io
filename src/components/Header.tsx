@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Menu, X, Sun, Moon, Globe } from "lucide-react";
 import { useTheme } from "@/contexts/ThemeContext";
 import { useLanguage, Language } from "@/contexts/LanguageContext";
+import { Link, useLocation } from "react-router-dom";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -14,12 +15,14 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { theme, toggleTheme } = useTheme();
   const { language, setLanguage, t } = useLanguage();
+  const location = useLocation();
+  const isHomePage = location.pathname === '/';
 
   const navItems = [
-    { name: t("about"), href: "#about" },
-    { name: t("skills"), href: "#skills" },
-    { name: t("projects"), href: "#projects" },
-    { name: t("contact"), href: "#contact" },
+    { name: t("about"), href: isHomePage ? "#about" : "/#about" },
+    { name: t("skills"), href: isHomePage ? "#skills" : "/#skills" },
+    { name: t("projects"), href: isHomePage ? "#projects" : "/#projects" },
+    { name: t("contact"), href: isHomePage ? "#contact" : "/#contact" },
   ];
 
   const languageOptions = [
@@ -40,9 +43,12 @@ const Header = () => {
       <div className="container mx-auto px-4 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <div className="text-xl font-bold text-gradient">
+          <Link 
+            to="/" 
+            className="text-xl font-bold text-gradient hover:scale-105 transition-transform duration-200"
+          >
             Cainã Santos
-          </div>
+          </Link>
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">

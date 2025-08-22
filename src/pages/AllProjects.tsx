@@ -159,20 +159,20 @@ const AllProjects = () => {
     <div className="min-h-screen bg-background">
       <Header />
       
-      <main className="pt-20">
+      <main className="pt-20 px-4 sm:px-6 lg:px-8">
         {/* Hero Section */}
-        <section className="py-20 bg-gradient-to-br from-background via-background to-primary/5">
-          <div className="container mx-auto px-4 lg:px-8">
+        <section className="py-16 lg:py-20 bg-gradient-to-br from-background via-background to-primary/5">
+          <div className="container mx-auto">
             <div className="text-center mb-16 max-w-4xl mx-auto">
               <div className="flex items-center justify-center gap-3 mb-6">
                 <div className="p-3 rounded-xl bg-gradient-primary/10 border border-primary/20">
                   <Sparkles className="h-8 w-8 text-primary" />
                 </div>
-                <h1 className="text-4xl md:text-6xl font-bold">
+                <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold">
                   Portfólio <span className="text-gradient">Completo</span>
                 </h1>
               </div>
-              <p className="text-muted-foreground text-lg leading-relaxed max-w-3xl mx-auto">
+              <p className="text-muted-foreground text-lg lg:text-xl leading-relaxed max-w-3xl mx-auto">
                 Explore minha coleção completa de projetos, desde aplicações frontend elegantes 
                 até sistemas backend robustos e soluções fullstack complexas.
               </p>
@@ -181,8 +181,8 @@ const AllProjects = () => {
         </section>
 
         {/* Filters Section */}
-        <section className="py-16 bg-card/30 backdrop-blur-sm border-y border-border/50">
-          <div className="container mx-auto px-4 lg:px-8">
+        <section className="py-12 lg:py-16 bg-card/30 backdrop-blur-sm border-y border-border/50">
+          <div className="container mx-auto">
             <ProjectFilters
               selectedStack={selectedStack}
               selectedLanguage={selectedLanguage}
@@ -199,16 +199,16 @@ const AllProjects = () => {
         </section>
 
         {/* Projects Grid */}
-        <section className="py-20">
-          <div className="container mx-auto px-4 lg:px-8">
+        <section className="py-16 lg:py-20">
+          <div className="container mx-auto">
             {filteredProjects.length > 0 ? (
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
                 {filteredProjects.map((project) => (
                   <ProjectCard key={project.id} project={project} />
                 ))}
               </div>
             ) : (
-              <div className="text-center py-20">
+              <div className="text-center py-16 lg:py-20">
                 <div className="max-w-md mx-auto">
                   <div className="p-4 rounded-full bg-muted/50 w-20 h-20 flex items-center justify-center mx-auto mb-6">
                     <Search className="h-8 w-8 text-muted-foreground" />

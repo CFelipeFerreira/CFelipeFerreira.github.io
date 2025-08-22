@@ -6,9 +6,9 @@ import { HeroScene3D } from "./Scene3D";
 const Hero = () => {
   const { t } = useLanguage();
   return (
-    <section className="relative min-h-screen flex items-center justify-center pt-14 lg:pt-16 overflow-hidden">
-      <div className="container mx-auto px-4 lg:px-8 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-8 xl:gap-12 items-center">
+    <section className="relative min-h-screen flex items-center justify-center pt-16 lg:pt-20 overflow-hidden px-4 sm:px-6 lg:px-8">
+      <div className="container mx-auto relative z-10">
+        <div className="grid lg:grid-cols-2 gap-8 xl:gap-16 items-center max-w-7xl mx-auto">
           {/* Content */}
           <div className="text-center lg:text-left order-2 lg:order-1">
             <h1 className="text-3xl sm:text-4xl md:text-5xl xl:text-6xl font-bold mb-4 lg:mb-6 leading-tight">
@@ -20,7 +20,7 @@ const Hero = () => {
               {t("subtitle")}
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-3 lg:gap-4 mb-6 lg:mb-8 justify-center lg:justify-start">
+            <div className="flex flex-col sm:flex-row gap-4 lg:gap-6 mb-8 lg:mb-10 justify-center lg:justify-start">
               <Button 
                 size="lg" 
                 className="bg-gradient-primary text-primary-foreground shadow-neon hover:shadow-neon hover:scale-105 transition-all duration-300"
@@ -41,7 +41,7 @@ const Hero = () => {
             </div>
 
             {/* Social Links */}
-            <div className="flex gap-3 lg:gap-4 justify-center lg:justify-start">
+            <div className="flex gap-4 lg:gap-6 justify-center lg:justify-start">
               <Button 
                 variant="ghost" 
                 size="icon"
@@ -77,10 +77,11 @@ const Hero = () => {
             </div>
           </div>
 
-          {/* 3D Scene */}
+          {/* Enhanced 3D Scene */}
           <div className="flex justify-center lg:justify-end order-1 lg:order-2">
-            <div className="relative w-full max-w-lg h-64 sm:h-80 lg:h-96">
-              <div className="absolute inset-0 bg-gradient-primary opacity-10 blur-3xl rounded-full"></div>
+            <div className="relative w-full max-w-lg h-72 sm:h-96 lg:h-[28rem] xl:h-[32rem]">
+              <div className="absolute inset-0 bg-gradient-primary opacity-15 blur-3xl rounded-full animate-pulse"></div>
+              <div className="absolute inset-0 bg-gradient-accent opacity-10 blur-2xl rounded-full animate-pulse" style={{animationDelay: '1s'}}></div>
               <HeroScene3D />
             </div>
           </div>

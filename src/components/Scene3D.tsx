@@ -1,137 +1,144 @@
-import { useRef, useMemo } from 'react';
-import { Canvas, useFrame, useThree } from '@react-three/fiber';
-import { Sphere, Box, Torus, OrbitControls, Float, Environment, ContactShadows, MeshTransmissionMaterial, useTexture } from '@react-three/drei';
+import React, { useRef, useMemo } from 'react';
+import { Canvas, useFrame } from '@react-three/fiber';
+import { OrbitControls, Environment, ContactShadows, MeshTransmissionMaterial, Float, Sparkles } from '@react-three/drei';
 import * as THREE from 'three';
 
-// Advanced 3D Geometric Objects
-const ComplexCrystal = ({ position, scale = 1 }: { position: [number, number, number], scale?: number }) => {
-  const meshRef = useRef<THREE.Mesh>(null);
-  
-  useFrame((state) => {
-    if (meshRef.current) {
-      meshRef.current.rotation.x = state.clock.getElapsedTime() * 0.3;
-      meshRef.current.rotation.y = state.clock.getElapsedTime() * 0.2;
-      meshRef.current.position.y = position[1] + Math.sin(state.clock.getElapsedTime()) * 0.2;
+// Animated Floating Crystal with realistic lighting
+const RealisticCrystal = () => {
+  const meshRef = useRef<THREE.Mesh>(null!);
+  const groupRef = useRef<THREE.Group>(null!);
+
+  const vertices = useMemo(() => {
+    const v = [];
+    for (let i = 0; i < 12; i++) {
+      const angle = (i / 12) * Math.PI * 2;
+      const radius = 1 + Math.sin(i * 0.5) * 0.3;
+      v.push(Math.cos(angle) * radius, (i % 3) * 1.2 - 0.6, Math.sin(angle) * radius);
     }
-  });
-
-  const geometry = useMemo(() => {
-    const vertices = new Float32Array([
-      0, 1.5, 0,   // Top
-      -0.8, 0.5, 0.8,   // Top ring
-      0.8, 0.5, 0.8,
-      0.8, 0.5, -0.8,
-      -0.8, 0.5, -0.8,
-      -1, -0.5, 1,   // Bottom ring
-      1, -0.5, 1,
-      1, -0.5, -1,
-      -1, -0.5, -1,
-      0, -1.5, 0    // Bottom
-    ]);
-
-    const indices = [
-      0, 1, 2,  0, 2, 3,  0, 3, 4,  0, 4, 1,  // Top faces
-      1, 5, 6,  1, 6, 2,  2, 6, 7,  2, 7, 3,  // Side faces
-      3, 7, 8,  3, 8, 4,  4, 8, 5,  4, 5, 1,
-      5, 9, 6,  6, 9, 7,  7, 9, 8,  8, 9, 5   // Bottom faces
-    ];
-
-    const geom = new THREE.BufferGeometry();
-    geom.setIndex(indices);
-    geom.setAttribute('position', new THREE.BufferAttribute(vertices, 3));
-    geom.computeVertexNormals();
-    return geom;
+    v.push(0, 2.2, 0); // top vertex
+    v.push(0, -2.2, 0); // bottom vertex
+    return new Float32Array(v);
   }, []);
 
+  const indices = useMemo(() => {
+    const idx = [];
+    for (let i = 0; i < 12; i++) {
+      const next = (i + 1) % 12;
+      idx.push(i, next, 12); // top faces
+      idx.push(i, 13, next); // bottom faces
+    }
+    return new Uint16Array(idx);
+  }, []);
+
+  useFrame((state) => {
+    if (meshRef.current && groupRef.current) {
+      meshRef.current.rotation.y += 0.008;
+      meshRef.current.rotation.x = Math.sin(state.clock.elapsedTime * 0.6) * 0.15;
+      groupRef.current.position.y = Math.sin(state.clock.elapsedTime * 0.4) * 0.5;
+      groupRef.current.rotation.z = Math.sin(state.clock.elapsedTime * 0.3) * 0.1;
+    }
+  });
+
   return (
-    <Float speed={1.5} rotationIntensity={2} floatIntensity={3}>
-      <mesh ref={meshRef} position={position} scale={scale} geometry={geometry} castShadow receiveShadow>
+    <group ref={groupRef} position={[-2.5, 0, 0]}>
+      <Sparkles count={30} scale={[4, 4, 4]} size={2} speed={0.4} />
+      <mesh ref={meshRef}>
+        <bufferGeometry>
+          <bufferAttribute attach="attributes-position" array={vertices} count={vertices.length / 3} itemSize={3} />
+          <bufferAttribute attach="index" array={indices} count={indices.length} itemSize={1} />
+        </bufferGeometry>
         <MeshTransmissionMaterial
-          backside
-          samples={16}
-          resolution={512}
-          transmission={0.8}
-          roughness={0.1}
-          thickness={0.2}
+          transmissionSampler={false}
+          transmission={0.9}
+          thickness={0.8}
+          roughness={0.05}
+          envMapIntensity={2}
+          color="#8b5cf6"
+          transparent
           ior={1.5}
           chromaticAberration={0.02}
-          anisotropy={0.1}
-          distortion={0.1}
-          distortionScale={0.2}
-          temporalDistortion={0.1}
-          color="#9d4edd"
+          anisotropy={0.3}
         />
       </mesh>
-    </Float>
+    </group>
   );
 };
 
-const MetallicOctahedron = ({ position }: { position: [number, number, number] }) => {
-  const meshRef = useRef<THREE.Mesh>(null);
-  
+// Enhanced Morphing Geometry
+const MorphingGeometry = () => {
+  const meshRef = useRef<THREE.Mesh>(null!);
+  const groupRef = useRef<THREE.Group>(null!);
+
   useFrame((state) => {
-    if (meshRef.current) {
-      meshRef.current.rotation.x = state.clock.getElapsedTime() * 0.4;
-      meshRef.current.rotation.z = state.clock.getElapsedTime() * 0.6;
+    if (meshRef.current && groupRef.current) {
+      meshRef.current.rotation.x += 0.006;
+      meshRef.current.rotation.y += 0.012;
+      groupRef.current.position.y = Math.cos(state.clock.elapsedTime * 0.8) * 0.6;
+      
+      // Morphing effect
+      const scale = 1 + Math.sin(state.clock.elapsedTime * 2) * 0.2;
+      meshRef.current.scale.setScalar(scale);
     }
   });
 
   return (
-    <Float speed={2} rotationIntensity={1.5} floatIntensity={2}>
-      <mesh ref={meshRef} position={position} castShadow receiveShadow>
-        <octahedronGeometry args={[1, 0]} />
-        <meshPhysicalMaterial
-          color="#3b82f6"
-          metalness={0.9}
-          roughness={0.1}
-          clearcoat={1}
-          clearcoatRoughness={0.1}
-          reflectivity={1}
-          envMapIntensity={2}
-        />
-      </mesh>
+    <Float speed={1.5} rotationIntensity={0.5} floatIntensity={0.5}>
+      <group ref={groupRef} position={[0, 0, 0]}>
+        <mesh ref={meshRef}>
+          <icosahedronGeometry args={[1.3, 1]} />
+          <meshPhysicalMaterial
+            color="#60a5fa"
+            metalness={0.8}
+            roughness={0.2}
+            envMapIntensity={1.5}
+            clearcoat={0.8}
+            clearcoatRoughness={0.2}
+            transmission={0.1}
+            transparent
+          />
+        </mesh>
+      </group>
     </Float>
   );
 };
 
-const HolographicTorus = ({ position }: { position: [number, number, number] }) => {
-  const meshRef = useRef<THREE.Mesh>(null);
-  
+// Holographic Energy Ring
+const EnergyRing = () => {
+  const meshRef = useRef<THREE.Mesh>(null!);
+  const groupRef = useRef<THREE.Group>(null!);
+
   useFrame((state) => {
-    if (meshRef.current) {
-      meshRef.current.rotation.x = state.clock.getElapsedTime() * 0.6;
-      meshRef.current.rotation.y = state.clock.getElapsedTime() * 0.4;
+    if (meshRef.current && groupRef.current) {
+      meshRef.current.rotation.x += 0.015;
+      meshRef.current.rotation.z += 0.008;
+      groupRef.current.position.y = Math.sin(state.clock.elapsedTime * 0.9) * 0.4;
+      
+      // Pulsing effect
+      const pulse = 1 + Math.sin(state.clock.elapsedTime * 4) * 0.1;
+      meshRef.current.scale.setScalar(pulse);
     }
   });
 
   return (
-    <Float speed={1.8} rotationIntensity={2} floatIntensity={4}>
-      <mesh ref={meshRef} position={position} castShadow receiveShadow>
-        <torusKnotGeometry args={[0.6, 0.15, 128, 32]} />
-        <meshPhysicalMaterial
-          color="#10b981"
-          metalness={0.8}
-          roughness={0.2}
-          transmission={0.3}
-          thickness={0.5}
-          ior={1.4}
-          emissive="#10b981"
-          emissiveIntensity={0.1}
-          clearcoat={0.8}
-        />
-      </mesh>
+    <Float speed={2} rotationIntensity={1} floatIntensity={0.8}>
+      <group ref={groupRef} position={[2.5, 0, 0]}>
+        <Sparkles count={20} scale={[3, 3, 3]} size={1.5} speed={0.6} />
+        <mesh ref={meshRef}>
+          <torusKnotGeometry args={[1.1, 0.25, 128, 32]} />
+          <meshPhysicalMaterial
+            color="#34d399"
+            emissive="#34d399"
+            emissiveIntensity={0.3}
+            metalness={0.2}
+            roughness={0.3}
+            envMapIntensity={1.2}
+            transmission={0.4}
+            transparent
+            ior={1.4}
+          />
+        </mesh>
+      </group>
     </Float>
-  );
-};
-
-// Floating geometric shapes for the hero section
-const FloatingShapes = () => {
-  return (
-    <>
-      <ComplexCrystal position={[-2, 1, -1]} scale={0.8} />
-      <MetallicOctahedron position={[2, -1, 0]} />
-      <HolographicTorus position={[0, 2, -2]} />
-    </>
   );
 };
 
@@ -212,61 +219,76 @@ const SkillOrbs = ({ skills }: { skills: string[] }) => {
   );
 };
 
-// Main 3D Scene component for hero section
+// Enhanced floating shapes component
+const FloatingShapes = () => {
+  return (
+    <>
+      <RealisticCrystal />
+      <MorphingGeometry />
+      <EnergyRing />
+    </>
+  );
+};
+
 export const HeroScene3D = () => {
   return (
     <div className="w-full h-full">
       <Canvas
-        camera={{ position: [0, 0, 8], fov: 75 }}
-        style={{ background: 'transparent' }}
-        shadows
+        camera={{ position: [0, 2, 10], fov: 50 }}
+        dpr={[1, 2]}
+        performance={{ min: 0.5 }}
         gl={{ antialias: true, alpha: true }}
       >
-        {/* Advanced lighting setup */}
-        <ambientLight intensity={0.3} />
+        <color attach="background" args={['transparent']} />
+        
+        {/* Enhanced Lighting Setup */}
+        <ambientLight intensity={0.4} />
         <directionalLight 
-          position={[10, 10, 5]} 
+          position={[5, 8, 5]} 
           intensity={1.2} 
           castShadow 
-          shadow-mapSize={[2048, 2048]}
+          shadow-mapSize={[1024, 1024]}
           shadow-camera-far={50}
           shadow-camera-left={-10}
           shadow-camera-right={10}
           shadow-camera-top={10}
           shadow-camera-bottom={-10}
         />
-        <pointLight position={[-5, 5, 5]} intensity={0.8} color="#9d4edd" />
-        <pointLight position={[5, -5, 3]} intensity={0.6} color="#3b82f6" />
+        <pointLight position={[-8, -5, -8]} color="#8b5cf6" intensity={0.8} />
+        <pointLight position={[8, 5, 8]} color="#60a5fa" intensity={0.6} />
         <spotLight 
-          position={[0, 10, 0]} 
-          intensity={0.5} 
-          angle={0.3} 
-          penumbra={0.2} 
-          color="#10b981"
+          position={[0, 15, 0]} 
+          angle={0.2} 
+          penumbra={1} 
+          intensity={0.8}
+          color="#34d399"
           castShadow
         />
         
-        {/* Environment and atmosphere */}
-        <Environment preset="studio" />
-        <fog attach="fog" args={['#000020', 10, 25]} />
-        
+        {/* 3D Objects */}
         <FloatingShapes />
         
-        {/* Contact shadows for ground effect */}
+        {/* Enhanced Environment */}
+        <Environment preset="city" environmentIntensity={0.6} />
+        
+        {/* Enhanced Ground Shadows */}
         <ContactShadows 
-          position={[0, -3, 0]} 
+          position={[0, -4, 0]} 
           opacity={0.3} 
           scale={20} 
-          blur={2} 
-          far={4.5} 
+          blur={3} 
+          far={6} 
+          color="#8b5cf6"
         />
         
-        <OrbitControls 
-          enableZoom={false} 
-          enablePan={false} 
-          autoRotate 
-          autoRotateSpeed={0.3}
-          enableDamping
+        {/* Enhanced Controls */}
+        <OrbitControls
+          enableZoom={false}
+          enablePan={false}
+          autoRotate
+          autoRotateSpeed={0.8}
+          maxPolarAngle={Math.PI / 1.6}
+          minPolarAngle={Math.PI / 4}
           dampingFactor={0.05}
         />
       </Canvas>
