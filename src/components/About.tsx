@@ -26,7 +26,7 @@ const About = () => {
             <div className="relative">
               <div className="absolute inset-0 bg-gradient-primary opacity-30 blur-2xl rounded-full"></div>
               <img
-                src="/lovable-uploads/c9289022-a067-420b-9e38-6dc38ff69be2.png"
+                src="src\assets\imagem-perfil.png"
                 alt="Cainã Santos - Desenvolvedor Fullstack"
                 className="relative z-10 w-80 h-80 object-cover rounded-2xl shadow-card"
               />
